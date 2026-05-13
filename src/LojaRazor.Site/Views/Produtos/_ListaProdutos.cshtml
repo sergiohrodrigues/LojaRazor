@@ -1,0 +1,25 @@
+﻿@model List<Produto>
+
+<div class="grid">
+    @foreach (var produto in Model)
+    {
+        <div class="card @(!produto.EmEstoque ? "esgotado" : "")">
+            <h2>@produto.Nome</h2>
+            <p>@produto.Descricao</p>
+            <p>Categoria: <em>@produto.Categoria</em></p>
+            <strong>@produto.Preco.ToString("C")</strong>
+
+            @if (produto.EmEstoque)
+            {
+                <span class="badge ok">✅ @produto.Estoque em estoque</span>
+                <a asp-controller="Produtos"
+                   asp-action="Detalhes"
+                   asp-route-id="@produto.Id">Ver detalhes</a>
+            }
+            else
+            {
+                <span class="badge esgotado">❌ Esgotado</span>
+            }
+        </div>
+    }
+</div>

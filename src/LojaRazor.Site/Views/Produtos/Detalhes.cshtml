@@ -1,0 +1,34 @@
+﻿@* Aqui o Model é um único Produto, não uma lista *@
+@model Produto
+
+@{
+    ViewData["Title"] = Model.Nome;
+}
+
+<a asp-controller="Produtos" asp-action="Index">← Voltar</a>
+
+<article class="detalhe">
+    <h1>@Model.Nome</h1>
+    <p class="descricao">@Model.Descricao</p>
+
+    <table>
+        <tr>
+            <th>Categoria</th>
+            <td>@Model.Categoria</td>
+        </tr>
+        <tr>
+            <th>Preço</th>
+            @* ToString("C") formata como moeda — usa a cultura do servidor *@
+            <td>@Model.Preco.ToString("C")</td>
+        </tr>
+        <tr>
+            <th>Situação</th>
+            <td>
+                @* Operador ternário dentro do Razor *@
+                @(Model.EmEstoque
+                                ? $"✅ {Model.Estoque} unidades disponíveis"
+                                : "❌ Produto esgotado")
+            </td>
+        </tr>
+    </table>
+</article>

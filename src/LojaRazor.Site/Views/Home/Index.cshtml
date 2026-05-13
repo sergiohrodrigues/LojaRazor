@@ -1,0 +1,32 @@
+﻿@* @model define o tipo do objeto recebido do Controller.
+   Com isso o Razor tem IntelliSense e tipagem forte! *@
+@model List<Produto>
+
+@{
+    // ViewData["Title"] é lido pelo _Layout.cshtml no <title>
+    ViewData["Title"] = "Home";
+}
+
+<h1>Bem-vindo à Loja Razor!</h1>
+<p>Confira alguns destaques:</p>
+
+<div class="grid">
+    @* @foreach é C# dentro do HTML — essa é a essência do Razor! *@
+    @foreach (var produto in Model)
+    {
+        <div class="card">
+            <h2>@produto.Nome</h2>
+            <p>@produto.Descricao</p>
+
+            @* @: força uma linha de texto puro dentro de um bloco @ *@
+            <strong>@produto.Preco.ToString("C")</strong>
+
+            @* Tag Helper: gera  <a href="/Produtos/Detalhes/1"> *@
+            <a asp-controller="Produtos"
+               asp-action="Detalhes"
+               asp-route-id="@produto.Id">
+                Ver detalhes
+            </a>
+        </div>
+    }
+</div>

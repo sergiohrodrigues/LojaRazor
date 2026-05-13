@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - LojaRazor.Site</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/LojaRazor.Site.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <nav>
+        @* asp-controller e asp-action são Tag Helpers do MVC.
+           Eles geram o href correto automaticamente. *@
+        <a asp-controller="Home" asp-action="Index">🏠 Home</a>
+        <a asp-controller="Produtos" asp-action="Index">📦 Produtos</a>
+    </nav>
+
+    <main>
+        @* Aqui é injetado o conteúdo de cada View *@
+        @RenderBody()
+    </main>
+
+    <footer>
+        <p>Loja Razor MVC &copy; @DateTime.Now.Year</p>
+    </footer>
+</body>
+</html>

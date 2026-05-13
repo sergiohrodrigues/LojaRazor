@@ -1,0 +1,45 @@
+﻿@model List<Produto>
+@{
+    ViewData["Title"] = "Produtos";
+    var categorias = ViewBag.Categorias as List<string> ?? new();
+    var ativaCateg = ViewBag.CategoriaAtiva as string;
+}
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<h1>Produtos</h1>
+
+<div class="filtros">
+    @* Virou button — sem navegação *@
+    <button class="btn-filtro @(ativaCateg == null ? "ativo" : "")"
+            data-categoria="">
+        Todos
+    </button>
+
+    @foreach (var cat in categorias)
+    {
+        <button class="btn-filtro @(cat == ativaCateg ? "ativo" : "")"
+                data-categoria="@cat">
+            @cat
+        </button>
+    }
+</div>
+
+@* Essa div será substituída pelo Ajax *@
+<div id="lista-produtos">
+    @await Html.PartialAsync("_ListaProdutos", Model)
+</div>
+
+<script>
+    $('.btn-filtro').on('click', function () {
+        var categoria = $(this).data('categoria');
+
+        // Marca o botão clicado como ativo
+        $('.btn-filtro').removeClass('ativo');
+        $(this).addClass('ativo');
+
+        $.get('/Produtos/Parcial', { categoria: categoria }, function (html) {
+            $('#lista-produtos').html(html);
+        });
+    });
+</script>
